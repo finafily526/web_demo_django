@@ -1,0 +1,274 @@
+{% extends "A_index_model.html" %}
+{% block content %}
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>每日风控报表 <small>（ps.每小时更新一次）</small></h3>
+              </div>
+
+              <div class="title_right">
+                <!--<div class="col-md-6 col-sm-5 col-xs-12 form-group pull-right top_search">-->
+                  <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" placeholder="Search for...">-->
+                    <!--<span class="input-group-btn">-->
+                      <!--<button class="btn btn-default" type="button">Go!</button>-->
+                    <!--</span>-->
+                  <!--</div>-->
+                    <form method="post">
+                          {% csrf_token %}
+                          <div class="pull-right" >
+                          <p>开始日期：{{ form.start_date }} 结束日期：{{ form.end_date }} <input type="submit" value="提交"></p>
+                            {% if message %}
+                              <div class="alert alert-warning">{{ message }}</div>
+                          {% endif %}
+                              </div>
+                        </form>
+                <!--</div>-->
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>流程通过情况 <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"  style='overflow:auto'>
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>日期</th>
+                          <th>注册</th>
+                          <th>申请</th>
+                          <th>授信</th>
+                            <th>订单</th>
+                          <th>订单总金额</th>
+                          <th>件均</th>
+                          <th>当日申请</th>
+                          <th>当日授信</th>
+                          <th>当日订单</th>
+                            <th>当日总金额</th>
+                          <th>当日件均</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result5 %}
+                      <tr>
+                        {% for mm in nn %}
+                          <td>{{mm}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>审批通过率 <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"  style='overflow:auto'>
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>日期</th>
+                          <th>点击人数</th>
+                          <th>af阻断</th>
+                          <th>af非阻断拒绝</th>
+                            <th>af通过</th>
+                          <th>af通过&多头0</th>
+                          <th>af过审通过率</th>
+                          <th>af拒绝多头01</th>
+                            <th>af拒绝审批通过率</th>
+                          <th>总审批通过率</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result %}
+                      <tr>
+                        {% for mm in nn %}
+                          <td>{{mm}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>三方风控进件通过率 <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"  style='overflow:auto'>
+
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>进件日期</th>
+                          <th>进件人数</th>
+                          <th>slp进件人数</th>
+                          <th>slp通过人数</th>
+                          <th>slp进件通过率</th>
+                            <th>tq进件人数</th>
+                          <th>tq通过人数</th>
+                          <th>tq进件通过率</th>
+                            <th>总通过人数</th>
+                          <th>进件通过率</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result2 %}
+                      <tr>
+                        {% for mm in nn %}
+                          <td>{{mm}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>渠道监控<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"  style='overflow:auto'>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                            <th>日期</th>
+                          <th>渠道名称</th>
+                          <th>点击人数</th>
+                          <th>AF阻断</th>
+                          <th>AF非阻断拒绝</th>
+                            <th>AF通过</th>
+                          <th>AF通过&多头0</th>
+                          <th>AF过审通过率</th>
+                          <th>AF拒绝多头01</th>
+                            <th>AF拒绝审批通过率</th>
+                          <th>总审批通过率</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result3 %}
+                      <tr>
+                        {% for mm in nn %}
+                          <td>{{mm}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>贷后情况<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"  style='overflow:auto'>
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>到期日</th>
+                          <th>来源</th>
+                          <th>期数</th>
+                          <th>应还笔数</th>
+                            <th>应还本金</th>
+                          <th>pd0笔数违约率</th>
+                          <th>pd0本金违约率</th>
+                          <th>pd1本金违约率</th>
+                          <th>pd2本金违约率</th>
+                            <th>pd3本金违约率</th>
+                          <th>pd5本金违约率</th>
+                            <th>pd7本金违约率</th>
+                          <th>pd10本金违约率</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result4 %}
+                      <tr>
+                        {% for mm in nn %}
+                          <td>{{mm}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}

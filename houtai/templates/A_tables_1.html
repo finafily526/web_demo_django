@@ -1,0 +1,163 @@
+{% extends "A_index_model.html" %}
+{% block content %}
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>还款迁徙表 <small></small></h3>
+              </div>
+
+              <div class="title_right">
+                <!--<div class="col-md-6 col-sm-5 col-xs-12 form-group pull-right top_search">-->
+                  <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" placeholder="Search for...">-->
+                    <!--<span class="input-group-btn">-->
+                      <!--<button class="btn btn-default" type="button">Go!</button>-->
+                    <!--</span>-->
+                  <!--</div>-->
+                    <form method="post">
+                          {% csrf_token %}
+                          <div class="pull-right" >
+                          <p>开始日期：{{ form.start_date }} 结束日期：{{ form.end_date }} <input type="submit" value="提交"></p>
+                            {% if message %}
+                              <div class="alert alert-warning">{{ message }}</div>
+                          {% endif %}
+                              </div>
+                        </form>
+                <!--</div>-->
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>整体还款情况<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content" style='overflow:auto'>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>到期日期</th>
+                          <th>到期订单数</th>
+                          <th>T0</th>
+                          <th>T1</th>
+                            <th>T2</th>
+                          <th>T3</th>
+                          <th>T5</th>
+                          <th>T7</th>
+                           <th>T0_rate</th>
+                          <th>T1_rate</th>
+                            <th>T2_rate</th>
+                          <th>T3_rate</th>
+                          <th>T5_rate</th>
+                          <th>T7_rate</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result %}
+                      <tr>
+                        {% for mm in nn %}
+                            {% if mm < 0.8 %}
+                                <td style="color :red">{{mm}}</td>
+                            {% else %}
+                                <td >{{mm}}</td>
+                            {% endif %}
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+              <div class="clearfix"></div>
+
+
+            </div>
+
+
+              <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>复借还款情况<small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content" style='overflow:auto'>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>到期日期</th>
+                          <th>到期订单数</th>
+                          <th>T0</th>
+                          <th>T1</th>
+                            <th>T2</th>
+                          <th>T3</th>
+                          <th>T5</th>
+                          <th>T7</th>
+                           <th>T0_rate</th>
+                          <th>T1_rate</th>
+                            <th>T2_rate</th>
+                          <th>T3_rate</th>
+                          <th>T5_rate</th>
+                          <th>T7_rate</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for nn in result2 %}
+                      <tr>
+                        {% for mm in nn %}
+                            {% if mm < 0.8 %}
+                                <td style="color :red">{{mm}}</td>
+                            {% else %}
+                                <td >{{mm}}</td>
+                            {% endif %}
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+              <div class="clearfix"></div>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}

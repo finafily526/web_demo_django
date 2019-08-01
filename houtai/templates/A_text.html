@@ -1,0 +1,166 @@
+{% extends "A_index_model.html" %}
+{% block content %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <!-- top tiles -->
+
+          <!-- /top tiles -->
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6">
+                    <h3>每日流量变化情况 <small>默认7天结果</small></h3>
+                  </div>
+                  <div class="col-md-6">
+
+                      <form method="post">
+                          {% csrf_token %}
+                          <div class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; ">
+                          <p>开始日期：{{ form.start_date }} 结束日期：{{ form.end_date }} <input type="submit" value="提交"></p>
+                            {% if message %}
+                              <div class="alert alert-warning">{{ message }}</div>
+                          {% endif %}
+                              </div>
+                        </form>
+                  </div>
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <div id="chart_plot_01" class="demo-placeholder"></div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+                  <div class="x_title">
+                    <h2>Top Campaign Performance</h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12 col-xs-6">
+                    <div>
+                      <p>regsiter</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p>apply</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-6">
+                    <div>
+                      <p>pass</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p>order</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>
+          <br />
+
+           <script>
+	$(function() {
+		var data, options;
+
+		// headline charts
+		data = {
+			labels: {{date|safe}},
+			series: [{
+				name: 'series-real',
+				data: {{rgister|safe}},
+			},
+            {
+                name: 'series-real',
+                data: {{apply|safe}},
+            },
+                {
+                name: 'Golden section',
+                data: {{past|safe}},
+			}]
+		};
+
+		options = {
+			fullWidth: false,
+			lineSmooth: false,
+			height: "270px",
+			low: 0,
+			high: 'auto',
+			series: {
+				'series-projection': {
+					showArea: true,
+					showPoint: false,
+					showLine: false
+				},
+			},
+		};
+
+
+		new Chartist.Line('#chart_plot_01', data, options);
+        var easeOutQuad = function (x, t, b, c, d) {
+            return -c * (t /= d) * (t - 2) + b;
+            };
+
+        var $chart = $('#chart_plot_01');
+
+        var $toolTip = $chart
+            .append('<p class="tooltip"></p>')
+            .find('.tooltip')
+            .hide();
+
+        $chart.on('mouseenter', '.ct-point', function() {
+        var $point = $(this),
+        value = $point.attr('ct:value'),
+        seriesName = $point.parent().attr('ct:series-name');
+
+        $point.animate({'stroke-width': '50px'}, 300, easeOutQuad);
+        $toolTip.html(seriesName + '<br>' + value).show();
+        });
+
+        $chart.on('mouseleave', '.ct-point', function() {
+        var $point = $(this);
+
+        $point.animate({'stroke-width': '20px'}, 300, easeOutQuad);
+        $toolTip.hide();
+        });
+
+        $chart.on('mousemove', function(event) {
+        $toolTip.css({
+        left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+        top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+                });
+            });
+
+
+	});
+	</script>
+          </div>
+        </div>
+        <!-- /page content -->
+
+{% endblock %}

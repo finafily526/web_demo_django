@@ -1,0 +1,33 @@
+"""new_mysite URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+from houtai import views as houtai
+
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^index$', houtai.index1, name='home'),
+    url(r'^$', houtai.index1, name='home'),
+    url(r'^login$', houtai.login, name='login'),
+    url(r'^register$', houtai.register, name='register'),
+    url(r'^logout$', houtai.logout, name='logout'),
+    url(r'^game$', houtai.getgame, name='game'),
+    # url(r'^test$', houtai.test, name='game'),
+    url(r'^table$', houtai.table, name='table'),
+    url(r'^table1$', houtai.table1, name='table1'),
+    url(r'^table2$', houtai.table2, name='table2'),
+]
