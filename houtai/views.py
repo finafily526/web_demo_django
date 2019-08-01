@@ -141,7 +141,7 @@ def table(request):
     return render(request, 'A_tables.html',
                   {'user': userobj[0]['username'], 'form': form})
 
-## 还款迁徙表
+## 迁徙表
 @check_login
 def table1(request):
     user_id1 = request.session.get('user_id')
@@ -166,7 +166,7 @@ def table1(request):
 
     return render(request, 'A_tables_1.html', {'user':userobj[0]['username'],'form': form })
 
-##策略命中情况
+##命中情况
 @check_login
 def table2(request):
     celue = ['测试']
